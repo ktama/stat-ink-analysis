@@ -128,5 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# IDE
+.vscode/
+
 # stat data
 battle-results/
