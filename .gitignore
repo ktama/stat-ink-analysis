@@ -133,3 +133,4 @@ dmypy.json
 
 # stat data
 battle-results/
+*.csv
