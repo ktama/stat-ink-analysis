@@ -5,7 +5,8 @@ from stat_team import *
 
 
 def read_battle_result():
-    csv_files = glob.glob('battle-results/2021*.csv')
+    csv_files = glob.glob('battle-results/2021-11-05.csv')
+    # csv_files = glob.glob('battle-results/2021*.csv')
 
     df = pd.DataFrame(columns=[])
 

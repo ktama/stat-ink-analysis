@@ -19,8 +19,10 @@ def get_item_list():
 
 def mean_stat(df):
     m = df.mean()
+    print(m)
     for item in get_item_list():
-        pass
+        delta = m['WT-'+item] - m['LT-'+item]
+        print(item + ': ' + str(delta))
 
 
 if __name__ == '__main__':
