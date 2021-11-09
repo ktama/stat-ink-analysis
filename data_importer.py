@@ -1,6 +1,8 @@
 import pandas as pd
 import glob
 
+from stat_team import *
+
 
 def read_battle_result():
     csv_files = glob.glob('battle-results/2021*.csv')
@@ -54,6 +56,29 @@ def translate_win_lose(df):
     return gachi
 
 
+def average_team(df, kind):
+    df['WT-'+kind] = (df['W1-'+kind] + df['W2-'+kind] +
+                      df['W3-'+kind] + df['W4-'+kind]) / 4
+    df['LT-'+kind] = (df['L1-'+kind] + df['L2-'+kind] +
+                      df['L3-'+kind] + df['L4-'+kind]) / 4
+    return df
+
+
+def add_average_team(df):
+    df = average_team(df, 'kill')
+    df = average_team(df, 'assist')
+    df = average_team(df, 'death')
+    df = average_team(df, 'special')
+    df = average_team(df, 'inked')
+    df = average_team(df, 'level')
+    return df
+
+
 if __name__ == '__main__':
     gachi = read_battle_result()
+    gachi = add_average_team(gachi)
     print(gachi)
+    gachi.to_csv('data.csv')
+    stat_data = filter(gachi)
+    stat_data.to_csv('filter.csv')
+    mean_stat(stat_data)
