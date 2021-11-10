@@ -83,3 +83,8 @@ if __name__ == '__main__':
     stat_data = filter(gachi)
     stat_data.to_csv('filter.csv')
     mean_stat(stat_data)
+    median_stat(stat_data)
+    max_stat(stat_data)
+    min_stat(stat_data)
+    std_stat(stat_data)
+    var_stat(stat_data)

@@ -25,5 +25,29 @@ def mean_stat(df):
         print(item + ': ' + str(delta))
 
 
-if __name__ == '__main__':
-    mean_stat()
+def median_stat(df):
+    m = df.median()
+    print(m)
+    for item in get_item_list():
+        delta = m['WT-'+item] - m['LT-'+item]
+        print(item + ': ' + str(delta))
+
+
+def max_stat(df):
+    m = df.max()
+    print(m)
+
+
+def min_stat(df):
+    m = df.min()
+    print(m)
+
+
+def std_stat(df):
+    m = df.std()
+    print(m)
+
+
+def var_stat(df):
+    m = df.var()
+    print(m)
