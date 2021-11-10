@@ -51,3 +51,18 @@ def std_stat(df):
 def var_stat(df):
     m = df.var()
     print(m)
+
+
+def stat_table(df):
+    mean = df.mean().reset_index(name='mean')
+    median = df.median().reset_index(name='median')
+    max = df.max().reset_index(name='max')
+    min = df.min().reset_index(name='min')
+    std = df.std().reset_index(name='std')
+    var = df.var().reset_index(name='var')
+    stat_df = pd.merge(mean, median)
+    stat_df = pd.merge(stat_df, max)
+    stat_df = pd.merge(stat_df, min)
+    stat_df = pd.merge(stat_df, std)
+    stat_df = pd.merge(stat_df, var)
+    return stat_df
