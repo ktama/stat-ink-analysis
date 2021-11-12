@@ -2,6 +2,7 @@ import pandas as pd
 import glob
 
 from stat_team import *
+from plot import *
 
 
 def read_battle_result():
@@ -84,3 +85,5 @@ if __name__ == '__main__':
     stat_data.to_csv('filter.csv')
     stat_df = stat_table(stat_data)
     print(stat_df)
+    print(stat_df.corr())
+    plot_table(gachi)
