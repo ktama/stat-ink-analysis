@@ -19,7 +19,6 @@ def read_battle_result():
 
     gachi = df.query(
         '`lobby-mode` == "gachi" & lobby == "standard" & `A1-rank` == "x" & `game-ver` == @ver')
-    gachi = translate_win_lose(gachi)
     return gachi
 
 
@@ -59,10 +58,17 @@ def translate_win_lose(df):
 
 
 def average_team(df, kind):
-    df['WT-'+kind] = (df['W1-'+kind] + df['W2-'+kind] +
-                      df['W3-'+kind] + df['W4-'+kind]) / 4
-    df['LT-'+kind] = (df['L1-'+kind] + df['L2-'+kind] +
-                      df['L3-'+kind] + df['L4-'+kind]) / 4
+    header = list(df)
+    if len([s for s in header if 'W1' in s]) > 0:
+        df['WT-'+kind] = (df['W1-'+kind] + df['W2-'+kind] +
+                          df['W3-'+kind] + df['W4-'+kind]) / 4
+        df['LT-'+kind] = (df['L1-'+kind] + df['L2-'+kind] +
+                          df['L3-'+kind] + df['L4-'+kind]) / 4
+    else:
+        df['AT-'+kind] = (df['A1-'+kind] + df['A2-'+kind] +
+                          df['A3-'+kind] + df['A4-'+kind]) / 4
+        df['BT-'+kind] = (df['B1-'+kind] + df['B2-'+kind] +
+                          df['B3-'+kind] + df['B4-'+kind]) / 4
     return df
 
 
@@ -77,13 +83,23 @@ def add_average_team(df):
 
 
 if __name__ == '__main__':
-    gachi = read_battle_result()
-    gachi = add_average_team(gachi)
-    print(gachi)
-    gachi.to_csv('data.csv')
-    stat_data = filter(gachi)
-    stat_data.to_csv('filter.csv')
-    stat_df = stat_table(stat_data)
-    print(stat_df)
-    print(stat_df.corr())
-    plot_table(gachi)
+    alpha_beta_gachi = read_battle_result()
+    win_lose_gachi = translate_win_lose(alpha_beta_gachi)
+    alpha_beta_gachi = add_average_team(alpha_beta_gachi)
+    win_lose_gachi = add_average_team(win_lose_gachi)
+    print(alpha_beta_gachi)
+    print(win_lose_gachi)
+    alpha_beta_gachi.to_csv('alpha_beta_data.csv')
+    win_lose_gachi.to_csv('win_lose_data.csv')
+    alpha_beta_stat_data = filter(alpha_beta_gachi)
+    win_lose_stat_data = filter(win_lose_gachi)
+    alpha_beta_stat_data.to_csv('alpha_beta_filter.csv')
+    win_lose_stat_data.to_csv('win_lose_filter.csv')
+    alpha_beta_stat_df = stat_table(alpha_beta_stat_data)
+    win_lose_stat_df = stat_table(win_lose_stat_data)
+    print(alpha_beta_stat_df)
+    print(win_lose_stat_df)
+    print(alpha_beta_stat_df.corr())
+    print(win_lose_stat_df.corr())
+    plot_table(alpha_beta_stat_df, 'alpha_beta')
+    plot_table(win_lose_gachi, 'win_lose')
