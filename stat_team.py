@@ -101,6 +101,8 @@ def stat_team_data(df):
         df[team_index[1]+'T-'+category+'-std'] = y.std(axis=1)
         df[team_index[0]+'T-'+category+'-var'] = x.var(axis=1)
         df[team_index[1]+'T-'+category+'-var'] = y.var(axis=1)
+        df[team_index[0]+'T-'+category +
+            '-delta'] = x.mean(axis=1) - y.mean(axis=1)
         df = df.drop([team_index[0]+'1-'+category, team_index[0]+'2-'+category,
                       team_index[0]+'3-'+category, team_index[0]+'4-'+category,
                       team_index[1]+'1-'+category, team_index[1]+'2-'+category,
