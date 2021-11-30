@@ -22,5 +22,27 @@ def read_buki():
     return df
 
 
+def convert_no(df):
+
+    def inner_convert_no(df):
+        return df.drop_duplicates().reset_index().drop("index", axis=1)
+
+    keys = inner_convert_no(df["key"])
+    categories1 = inner_convert_no(df["category1"])
+    categories2 = inner_convert_no(df["category2"])
+    mainweapons = inner_convert_no(df["mainweapon"])
+    subweapons = inner_convert_no(df["subweapon"])
+    specials = inner_convert_no(df["special"])
+
+    print(keys)
+    print(categories1)
+    print(categories2)
+    print(mainweapons)
+    print(subweapons)
+    print(specials)
+
+
 if __name__ == '__main__':
-    print(read_buki())
+    df = read_buki()
+    print(df)
+    convert_no(df)
