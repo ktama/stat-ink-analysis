@@ -11,7 +11,12 @@ class Buki:
     subweapon: str
     special: str
     reskin: str
-    # TODO:番号に直したメンバーを追加
+    category1_no: str
+    category2_no: str
+    mainweapon_no: str
+    subweapon_no: str
+    special_no: str
+    reskin_no: str
 
 
 def read_buki():
@@ -40,6 +45,13 @@ def convert_no(df):
     print(mainweapons)
     print(subweapons)
     print(specials)
+
+    print(categories1.index[(categories1['category1'] == 'roller')].tolist())
+    print(
+        categories1.index[(categories1['category1'] == 'roller')].tolist()[0])
+
+    # Buki のデータクラスDictにする
+    # dict[key] = Buki DataClass
 
 
 if __name__ == '__main__':
