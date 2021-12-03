@@ -10,24 +10,22 @@ class Buki:
     mainweapon: str
     subweapon: str
     special: str
-    reskin: str
     category1_no: str
     category2_no: str
     mainweapon_no: str
     subweapon_no: str
     special_no: str
-    reskin_no: str
 
 
 def read_buki():
     df = pd.read_csv('statink-weapon2/statink-weapon2.csv')
     df = df.drop(['[de-DE]', '[en-GB]', '[en-US]', '[es-ES]', '[es-MX]', '[fr-CA]',
-                 '[fr-FR]', '[it-IT]', '[ja-JP]', '[nl-NL]', '[ru-RU]', '[zh-CN]', '[zh-TW]', 'splatnet'], axis=1)
+                 '[fr-FR]', '[it-IT]', '[ja-JP]', '[nl-NL]', '[ru-RU]', '[zh-CN]', '[zh-TW]', 'splatnet', 'reskin'], axis=1)
     df.to_csv('buki.csv')
     return df
 
 
-def convert_no(df):
+def convert_dict(df):
 
     def inner_convert_no(df):
         return df.drop_duplicates().reset_index().drop("index", axis=1)
@@ -39,22 +37,26 @@ def convert_no(df):
     subweapons = inner_convert_no(df["subweapon"])
     specials = inner_convert_no(df["special"])
 
-    print(keys)
-    print(categories1)
-    print(categories2)
-    print(mainweapons)
-    print(subweapons)
-    print(specials)
-
-    print(categories1.index[(categories1['category1'] == 'roller')].tolist())
-    print(
-        categories1.index[(categories1['category1'] == 'roller')].tolist()[0])
-
-    # Buki のデータクラスDictにする
-    # dict[key] = Buki DataClass
+    buki_dict = {}
+    for _, row in df.iterrows():
+        buki_dict[row.key] = Buki(key=row.key,
+                                  category1=row.category1, category2=row.category2,
+                                  mainweapon=row.mainweapon, subweapon=row.subweapon,
+                                  special=row.special,
+                                  category1_no=categories1.index[(
+                                      categories1['category1'] == row.category1)].tolist()[0],
+                                  category2_no=categories2.index[(
+                                      categories2['category2'] == row.category2)].tolist()[0],
+                                  mainweapon_no=mainweapons.index[(
+                                      mainweapons['mainweapon'] == row.mainweapon)].tolist()[0],
+                                  subweapon_no=subweapons.index[(
+                                      subweapons['subweapon'] == row.subweapon)].tolist()[0],
+                                  special_no=specials.index[(
+                                      specials['special'] == row.special)].tolist()[0])
+    return buki_dict
 
 
 if __name__ == '__main__':
     df = read_buki()
     print(df)
-    convert_no(df)
+    convert_dict(df)
