@@ -56,6 +56,11 @@ def convert_dict(df):
     return buki_dict
 
 
+def replace_name2no(df):
+    # 武器の名前を番号に置き換える
+    pass
+
+
 if __name__ == '__main__':
     df = read_buki()
     print(df)
