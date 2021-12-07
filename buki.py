@@ -1,5 +1,6 @@
 import pandas as pd
 import dataclasses
+from utility import *
 
 
 @dataclasses.dataclass
@@ -58,7 +59,12 @@ def convert_dict(df):
 
 def replace_name2no(df):
     # 武器の名前を番号に置き換える
-    pass
+    team_index = ['A', 'B']
+    header = list(df)
+    if len([s for s in header if 'W1' in s]) > 0:
+        team_index = ['W', 'L']
+
+    x, y = extract_team_data(df, team_index, 'buki')
 
 
 if __name__ == '__main__':
