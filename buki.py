@@ -57,7 +57,9 @@ def convert_dict(df):
     return buki_dict
 
 
-def replace_name2no(df, buki_dict):
+def replace_name2no(df):
+    buki_df = read_buki()
+    buki_dict = convert_dict(buki_df)
     # 別のファイルの関数と合わせないと動かない
     # 武器の名前を番号に置き換える
     team_index = ['A', 'B']
@@ -66,6 +68,11 @@ def replace_name2no(df, buki_dict):
         team_index = ['W', 'L']
     print(df)
     x, y = extract_team_data(df, team_index, 'weapon')
+    print(x)
+    # TODO:辞書でDataFrameを置き換える方法を調べる
+    tmp = buki_dict[x]
+    print(tmp)
+    print(tmp.category1_no)
     df[team_index[0]+'1-category1'] = buki_dict[x].category1_no
     print(df)
 
