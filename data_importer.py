@@ -2,6 +2,7 @@ import pandas as pd
 import glob
 
 from stat_team import *
+from buki import *
 from plot import *
 
 
@@ -65,6 +66,8 @@ if __name__ == '__main__':
     alpha_beta_gachi = read_battle_result()
     win_lose_gachi = translate_win_lose(alpha_beta_gachi)
     print(alpha_beta_gachi)
+    tmp = replace_name2no(alpha_beta_gachi)
+    print(tmp)
     print(win_lose_gachi)
     alpha_beta_gachi.to_csv('alpha_beta_data.csv')
     win_lose_gachi.to_csv('win_lose_data.csv')
