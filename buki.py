@@ -82,3 +82,6 @@ if __name__ == '__main__':
     print(df)
     convert_dict(df)
     buki_dict = convert_dict(df)
+    print(buki_dict)
+    print('-----')
+    print(buki_dict['52gal'])
